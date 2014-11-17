@@ -165,6 +165,34 @@ class CalcWorkDays
                 self::$_holidays[self::$country][date('Y-m-d', $easter + self::ONEDAY * 49)] = true; // Pinsedag
                 self::$_holidays[self::$country][date('Y-m-d', $easter + self::ONEDAY * 50)] = true; // 2. Pinsedag
                 break;
+            case 'SE':
+                // Holidays with a fixed date
+                self::$_holidays[self::$country][$year . '-01-01'] = true; // New Year's Day
+                self::$_holidays[self::$country][$year . '-01-06'] = true; // Epiphany
+                self::$_holidays[self::$country][$year . '-05-01'] = true; // May Day
+                self::$_holidays[self::$country][$year . '-06-06'] = true; // National day
+                self::$_holidays[self::$country][$year . '-12-25'] = true; // Christmas Day
+                self::$_holidays[self::$country][$year . '-12-26'] = true; // Boxing Day
+
+                // Midsummer day
+                $offset = strtotime($year . '-06-20');
+                $midsummerDay = $offset + self::ONEDAY * (6 - date('w', $offset));
+                self::$_holidays[self::$country][date('Y-m-d', $midsummerDay)] = true;
+
+                // All Saints' Day
+                $offset = strtotime($year . '-10-31');
+                $allSaintsDay = $offset + self::ONEDAY * (6 - date('w', $offset));
+                self::$_holidays[self::$country][date('Y-m-d', $allSaintsDay)] = true;
+
+                // Holidays that depends on easter
+                $easter = easter_date($year);
+
+                self::$_holidays[self::$country][date('Y-m-d', $easter - self::ONEDAY * 2)] = true; // Good Friday
+                self::$_holidays[self::$country][date('Y-m-d', $easter)] = true; // Easter
+                self::$_holidays[self::$country][date('Y-m-d', $easter + self::ONEDAY)] = true; // Easter Monday
+                self::$_holidays[self::$country][date('Y-m-d', $easter + self::ONEDAY * 39)] = true; // Ascension Day
+                self::$_holidays[self::$country][date('Y-m-d', $easter + self::ONEDAY * 49)] = true; // Whit Monday
+                break;
             default:
                 throw new Exception('Unsupported language');
                 break;
