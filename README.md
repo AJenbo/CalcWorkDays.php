@@ -7,7 +7,7 @@ Class for doing work day calculations.
 This class works with Unix timestamps and as such is limited to years beetwean 1970 and 2037
 
 ###Samples
-How many days off work until xmas:
+How many days of work until xmas:
 
 `
 CalcWorkDays::workDaysBetween(
@@ -26,4 +26,10 @@ On what date will we have had 9 dayes of work from next monday:
 
 `
 CalcWorkDays::addWorkDays(9, strtotime('monday'))
+`
+
+Switch to German holidays:
+
+`
+CalcWorkDays::$country = 'DE'
 `
