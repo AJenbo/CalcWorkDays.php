@@ -129,8 +129,24 @@ class CalcWorkDays
         }
 
         switch (self::$country) {
+            case 'DE':
+                // Holidays with a fixed date
+                self::$_holidays[self::$country][$year . '-01-01'] = true; // New Year's Day
+                self::$_holidays[self::$country][$year . '-05-01'] = true; // May Day
+                self::$_holidays[self::$country][$year . '-10-03'] = true; // Day of German Unity
+                self::$_holidays[self::$country][$year . '-12-25'] = true; // Christmas Day
+                self::$_holidays[self::$country][$year . '-12-26'] = true; // Boxing Day
+
+                // Holidays that depends on easter
+                $easter = easter_date($year);
+
+                self::$_holidays[self::$country][date('Y-m-d', $easter - self::ONEDAY * 2)] = true; // Good Friday
+                self::$_holidays[self::$country][date('Y-m-d', $easter + self::ONEDAY)] = true; // Easter Monday
+                self::$_holidays[self::$country][date('Y-m-d', $easter + self::ONEDAY * 39)] = true; // Ascension Day
+                self::$_holidays[self::$country][date('Y-m-d', $easter + self::ONEDAY * 50)] = true; // Whit Monday
+                break;
             case 'DK':
-                 // Holidays with a fixed date
+                // Holidays with a fixed date
                 self::$_holidays[self::$country][$year . '-01-01'] = true; // Nytårsdag
                 self::$_holidays[self::$country][$year . '-06-05'] = true; // Grundlovsdag
                 self::$_holidays[self::$country][$year . '-12-24'] = true; // Juleaften
