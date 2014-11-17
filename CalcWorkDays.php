@@ -137,15 +137,11 @@ class CalcWorkDays
                 self::$_holidays[self::$country][$year . '-12-25'] = true; // Juledag
                 self::$_holidays[self::$country][$year . '-12-26'] = true; // 2. Juledag
 
-                // Holidays that depends on the day of easter
+                // Holidays that depends on easter
                 $easter = easter_date($year);
-                $langfredag = $easter - self::ONEDAY;
-                while (date('w', $langfredag) != 5) {
-                    $langfredag -= self::ONEDAY;
-                }
 
-                self::$_holidays[self::$country][date('Y-m-d', $langfredag - self::ONEDAY)] = true; // Skærtorsdag
-                self::$_holidays[self::$country][date('Y-m-d', $langfredag)] = true; // Langfredag
+                self::$_holidays[self::$country][date('Y-m-d', $easter - self::ONEDAY * 3)] = true; // Skærtorsdag
+                self::$_holidays[self::$country][date('Y-m-d', $easter - self::ONEDAY * 2)] = true; // Langfredag
                 self::$_holidays[self::$country][date('Y-m-d', $easter)] = true; // Påskedag
                 self::$_holidays[self::$country][date('Y-m-d', $easter + self::ONEDAY)] = true; // 2. Påskedag
                 self::$_holidays[self::$country][date('Y-m-d', $easter + self::ONEDAY * 26)] = true; // Store Bededag
